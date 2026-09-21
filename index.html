@@ -1,1 +1,541 @@
-Coming soon...
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===== SEO ===== -->
+  <title>Bitcoin Heiloo</title>
+  <meta name="description" content="Bitcoin Heiloo brengt lokale bitcoiners. Laat je e-mailadres achter en hoor als eerste wanneer de eerste meetup plaatsvindt." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://bitcoinheiloo.nl/" />
+  <meta name="theme-color" content="#0b0b0e" />
+
+  <!-- ===== Open Graph (social media previews) ===== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bitcoinheiloo.nl/" />
+  <meta property="og:title" content="Bitcoin Heiloo" />
+  <meta property="og:description" content="Bitcoin adoptie begint lokaal. Laat je e-mailadres achter en blijf op de hoogte van de eerste Bitcoin Heiloo meetup." />
+  <meta property="og:locale" content="nl_NL" />
+  <!-- Voeg later og-image.png toe aan je repo (1200x630px) voor een mooie preview -->
+  <meta property="og:image" content="https://bitcoinheiloo.nl/og-image.png" />
+
+  <!-- ===== Twitter/X ===== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bitcoin Heiloo" />
+  <meta name="twitter:description" content="Bitcoin adoptie begint lokaal. Laat je e-mailadres achter en blijf op de hoogte." />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23f7931a'/><text x='50' y='68' font-size='58' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>₿</text></svg>" />
+
+  <!-- ===== Structured data: website + organisatie ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Bitcoin Heiloo",
+        "url": "https://bitcoinheiloo.nl/",
+        "inLanguage": "nl-NL"
+      },
+      {
+        "@type": "Organization",
+        "name": "Bitcoin Heiloo",
+        "url": "https://bitcoinheiloo.nl/",
+        "description": "Lokale bitcoin meetup in Heiloo, Noord-Holland. Toegankelijk voor beginners en ervaren bitcoiners."
+      }
+    ]
+  }
+  </script>
+
+  <!-- ============================================================
+       FASE 2: Zodra datum & locatie bekend zijn, haal dit blok uit
+       commentaar en vul de gegevens in. Dit geeft Google kans op
+       een 'event' rich result in zoekresultaten.
+  ============================================================
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Bitcoin Heiloo Meetup",
+    "startDate": "2027-01-01T19:00:00+01:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "LOCATIE_NAAM",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Heiloo",
+        "addressRegion": "Noord-Holland",
+        "addressCountry": "NL"
+      }
+    },
+    "organizer": { "@type": "Organization", "name": "Bitcoin Heiloo", "url": "https://bitcoinheiloo.nl/" }
+  }
+  </script>
+  ============================================================ -->
+
+  <style>
+    :root {
+      --bg: #0b0b0e;
+      --surface: rgba(255, 255, 255, 0.035);
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --orange: #f7931a;
+      --orange-hover: #ffa940;
+      --orange-soft: rgba(247, 147, 26, 0.12);
+      --radius: 14px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .glow {
+      position: fixed;
+      top: -300px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse, var(--orange-soft) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== Navigatie ===== */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.1rem;
+      text-decoration: none; color: var(--text);
+    }
+    .brand .coin {
+      width: 32px; height: 32px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 1.05rem;
+    }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.92rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    @media (max-width: 560px) { .nav-links { display: none; } }
+
+    /* ===== Hero ===== */
+    .hero { text-align: center; padding: 72px 0 56px; }
+    .badge {
+      display: inline-block;
+      background: var(--orange-soft);
+      color: var(--orange);
+      border: 1px solid rgba(247, 147, 26, 0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 26px;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    h1 .accent {
+      background: linear-gradient(120deg, var(--orange), #ffc46b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p.lead {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+
+    /* ===== Aanmeldformulier ===== */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+    .signup-card { max-width: 480px; margin: 0 auto; }
+    .signup-card h2 { font-size: 1.25rem; margin-bottom: 6px; }
+    .signup-card > p { color: var(--muted); font-size: 0.95rem; margin-bottom: 22px; }
+    .signup label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-align: left;
+    }
+    .signup label span { color: var(--muted); font-weight: 400; }
+    .signup input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .signup input:focus { border-color: var(--orange); }
+    .signup button {
+      width: 100%;
+      background: var(--orange);
+      color: #1a1205;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, opacity 0.2s;
+    }
+    .signup button:hover { background: var(--orange-hover); }
+    .signup button:active { transform: scale(0.99); }
+    .signup button:disabled { opacity: 0.6; cursor: wait; }
+    .privacy { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 14px; }
+
+    /* ===== Succes & foutmeldingen formulier ===== */
+    .form-error {
+      color: #f87171;
+      font-size: 0.85rem;
+      margin: 4px 0 10px;
+      text-align: center;
+    }
+    .success { text-align: center; padding: 12px 0; }
+    .success .check {
+      width: 52px; height: 52px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: var(--orange-soft);
+      border: 1px solid rgba(247, 147, 26, 0.35);
+      color: var(--orange);
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .success h3 { font-size: 1.15rem; margin-bottom: 8px; }
+    .success p { color: var(--muted); font-size: 0.92rem; }
+
+    /* ===== Secties ===== */
+    section { padding: 56px 0; }
+    .section-label {
+      color: var(--orange);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    h2.section-title { font-size: 1.8rem; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .section-text { color: var(--muted); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 28px;
+    }
+    @media (max-width: 620px) { .two-col { grid-template-columns: 1fr; } }
+    .feature { padding: 26px; }
+    .feature .icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .feature h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .feature p { color: var(--muted); font-size: 0.92rem; }
+
+    /* ===== Stappen ===== */
+    .steps { margin-top: 28px; display: grid; gap: 16px; }
+    .step { display: flex; gap: 18px; align-items: flex-start; padding: 22px 26px; }
+    .step .num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--orange-soft);
+      border: 1px solid rgba(247, 147, 26, 0.35);
+      color: var(--orange);
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step h3 { font-size: 1.02rem; margin-bottom: 4px; }
+    .step h3 .tag {
+      font-size: 0.7rem;
+      color: var(--orange);
+      border: 1px solid rgba(247, 147, 26, 0.35);
+      border-radius: 999px;
+      padding: 2px 10px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-weight: 600;
+    }
+    .step p { color: var(--muted); font-size: 0.92rem; }
+
+    /* ===== FAQ ===== */
+    details {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 24px;
+      margin-top: 12px;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.98rem;
+      list-style: none;
+    }
+    summary::before { content: "+ "; color: var(--orange); font-weight: 700; }
+    details[open] summary::before { content: "− "; }
+    details p { color: var(--muted); font-size: 0.92rem; margin-top: 10px; }
+
+    /* ===== Footer ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 0 44px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer .coin {
+      display: inline-flex;
+      width: 28px; height: 28px;
+      background: var(--orange);
+      border-radius: 50%;
+      align-items: center; justify-content: center;
+      color: #fff; font-weight: 800;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+
+  <div class="container">
+    <nav>
+      <a class="brand" href="/"><span class="coin">₿</span> Bitcoin Heiloo</a>
+      <div class="nav-links">
+        <a href="#waarom">Waarom lokaal</a>
+        <a href="#voor-wie">Voor wie</a>
+        <a href="#planning">Planning</a>
+        <a href="#aanmelden">Aanmelden</a>
+      </div>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <header class="hero">
+      <div class="badge">Q1 2027 &nbsp;·&nbsp; Heiloo, Noord-Holland</div>
+      <h1>De lokale <span class="accent">bitcoin meetup</span><br />van Heiloo &amp; omgeving</h1>
+      <p class="lead">
+        Wij willen geinteresseerden in Bitcoin bij elkaar brengen: van nieuwsgierige beginner tot doorgewinterde hodler. Laat je e-mailadres
+        achter en hoor als eerste wanneer en waar de eerste bijeenkomst plaatsvindt.
+      </p>
+
+      <!-- ==========================================================
+           BUTTONDOWN FORMULIER (AJAX — bezoeker blijft op deze pagina)
+           Vervang op 1 plek JOUW_BUTTONDOWN_NAAM in het script
+           onderaan de body (const BUTTONDOWN_URL).
+           ========================================================== -->
+      <div class="card signup-card" id="aanmelden">
+        <h2>Blijf op de hoogte</h2>
+        <p>Meld je aan en ontvang een bericht zodra datum en locatie bekend zijn.</p>
+
+        <form class="signup" id="signup-form">
+          <label for="bd-naam">Naam <span>(optioneel)</span></label>
+          <input type="text" name="metadata__naam" id="bd-naam" placeholder="Je naam" autocomplete="name" />
+
+          <label for="bd-email">E-mailadres</label>
+          <input type="email" name="email" id="bd-email" placeholder="jij@voorbeeld.nl" autocomplete="email" required />
+
+          <button type="submit" id="signup-button">Houd me op de hoogte</button>
+          <p id="form-error" class="form-error" hidden>
+            Er ging iets mis. Probeer het opnieuw of controleer je e-mailadres.
+          </p>
+          <p class="privacy">🔒 Alleen updates over deze meetup. Uitschrijven kan op elk moment.</p>
+        </form>
+
+        <div id="form-success" class="success" hidden>
+          <div class="check">✓</div>
+          <h3>Check je inbox!</h3>
+          <p>
+            We hebben je een bevestigingsmail gestuurd. Klik op de link in die mail
+            om je aanmelding te bevestigen — dan ben je helemaal klaar.
+          </p>
+        </div>
+      </div>
+      <!-- ===== einde Buttondown formulier ===== -->
+    </header>
+
+    <!-- ===== Waarom lokaal ===== -->
+    <section id="waarom">
+      <div class="section-label">Waarom lokaal?</div>
+      <h2 class="section-title">Decentraal geld verdient een lokale gemeenschap</h2>
+      <p class="section-text">
+        Online is er genoeg informatie over bitcoin te vinden. Maar de beste gesprekken ontstaan
+        aan tafel, met mensen uit je eigen dorp of stad. Bitcoin Heiloo brengt die mensen bij
+        elkaar: geïnteresseerden die elkaar anders nooit hadden gevonden. Geen verkooppraat,
+        geen presentaties vol jargon — gewoon kennismaken, vragen stellen en ervaringen delen.
+      </p>
+    </section>
+
+    <!-- ===== Voor wie ===== -->
+    <section id="voor-wie">
+      <div class="section-label">Voor wie?</div>
+      <h2 class="section-title">Van eerste vraag tot jarenlange ervaring</h2>
+      <div class="two-col">
+        <div class="card feature">
+          <div class="icon">🌱</div>
+          <h3>Nieuw met bitcoin?</h3>
+          <p>
+            Je hoeft niets te weten en niets te bezitten. Wat is bitcoin eigenlijk? Hoe werkt het?
+            Waarom zou het uitmaken? Stel al je vragen in een omgeving zonder oordeel.
+          </p>
+        </div>
+        <div class="card feature">
+          <div class="icon">⛏️</div>
+          <h3>Ervaren bitcoiner?</h3>
+          <p>
+            Ontdek wie er nog meer in de buurt zit. Deel je kennis, praat over self-custody,
+            lightning of mining — en help nieuwkomers op weg.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Planning ===== -->
+    <section id="planning">
+      <div class="section-label">Hoe werkt het?</div>
+      <h2 class="section-title">Eerst verzamelen, dan plannen</h2>
+      <div class="steps">
+        <div class="card step">
+          <div class="num">1</div>
+          <div>
+            <h3>Laat je e-mailadres achter <span class="tag">nu</span></h3>
+            <p>
+              We bevinden ons in de aanloopfase. Jouw aanmelding is vrijblijvend en laat zien
+              dat er interesse is in de regio Heiloo.
+            </p>
+          </div>
+        </div>
+        <div class="card step">
+          <div class="num">2</div>
+          <div>
+            <h3>We verzamelen geïnteresseerden</h3>
+            <p>
+              Zodra er voldoende animo is, kiezen we een passende locatie.
+            </p>
+          </div>
+        </div>
+        <div class="card step">
+          <div class="num">3</div>
+          <div>
+            <h3>Datum &amp; locatie volgen per e-mail <span class="tag">Q1 2027</span></h3>
+            <p>
+              Je ontvangt een bericht met alle details. Dan bepaal je zelf of je erbij bent.
+              De eerste meetup vindt naar verwachting plaats in het eerste kwartaal van 2027.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq">
+      <div class="section-label">Veelgestelde vragen</div>
+      <h2 class="section-title">Goed om te weten</h2>
+
+      <details>
+        <summary>Moet ik bitcoin bezitten om te komen?</summary>
+        <p>Nee. De meetup is juist ook bedoeld voor mensen die nog helemaal niets met bitcoin hebben gedaan. Nieuwsgierigheid is genoeg.</p>
+      </details>
+      <details>
+        <summary>Wat kost deelname?</summary>
+        <p>Niets — aanmelden voor updates is gratis en de meetup zelf is bedoeld als laagdrempelige bijeenkomst voor de lokale gemeenschap.</p>
+      </details>
+      <details>
+        <summary>Waar vindt de meetup plaats?</summary>
+        <p>Dat bepalen we zodra duidelijk is hoeveel animo er is. De locatie zal in ieder geval in Heiloo of directe omgeving zijn. Aangemelde deelnemers horen het als eerste.</p>
+      </details>
+      <details>
+        <summary>Wat gebeurt er met mijn e-mailadres?</summary>
+        <p>Je e-mailadres wordt uitsluitend gebruikt voor updates over deze meetup — niets anders. Je kunt je op elk moment met één klik uitschrijven.</p>
+      </details>
+      <details>
+        <summary>Wordt er iets verkocht?</summary>
+        <p>Nee. Bitcoin Heiloo is een onafhankelijk, lokaal initiatief. Er worden geen producten, diensten of 'investeringskansen' aangeboden.</p>
+      </details>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+      <p><strong>Bitcoin Heiloo</strong> — een lokaal, onafhankelijk initiatief</p>
+    </footer>
+  </div>
+
+  <script>
+    // ============================================================
+    // VERVANG HIER: JOUW_BUTTONDOWN_NAAM → je Buttondown-gebruikersnaam
+    // ============================================================
+    const BUTTONDOWN_URL = 'https://buttondown.com/api/emails/embed-subscribe/bitcoinheiloo';
+
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const button = document.getElementById('signup-button');
+      const error = document.getElementById('form-error');
+
+      button.disabled = true;
+      button.textContent = 'Bezig…';
+      error.hidden = true;
+
+      try {
+        const response = await fetch(BUTTONDOWN_URL, {
+          method: 'POST',
+          body: new FormData(form),
+        });
+
+        if (response.ok) {
+          form.hidden = true;
+          document.getElementById('form-success').hidden = false;
+        } else {
+          error.hidden = false;
+          button.disabled = false;
+          button.textContent = 'Houd me op de hoogte';
+        }
+      } catch {
+        error.hidden = false;
+        button.disabled = false;
+        button.textContent = 'Houd me op de hoogte';
+      }
+    });
+  </script>
+</body>
+</html>
